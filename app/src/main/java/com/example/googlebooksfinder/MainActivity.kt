@@ -1,9 +1,12 @@
 package com.example.googlebooksfinder
 
+import apiServices.ApiServices
+import apiServices.ApiServicesImp
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -25,27 +28,42 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    Greeting("Android", applicationContext)
                 }
             }
         }
     }
 }
+fun getData(context: Context?) {
+    if (context == null) return
+
+    val apiServices: ApiServices = ApiServicesImp(context)
+    apiServices.searchBooks("the+love") {
+        print(it.searchResult)
+    }
+}
 
 @Composable
-fun Greeting(name: String) {
+fun Greeting(name: String, context: Context?) {
     Text(
         "Hello $name!",
         textAlign = TextAlign.Center,
         fontSize = 24.sp,
-        modifier = Modifier.fillMaxSize()
+
+        modifier = Modifier
+            .fillMaxSize()
+            .clickable {
+                getData(context)
+            }
+
     )
 }
+
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     GoogleBooksFinderTheme {
-        Greeting("Android")
+        Greeting("Android", context = null)
     }
 }
