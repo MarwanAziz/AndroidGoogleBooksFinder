@@ -5,4 +5,5 @@ interface DataBaseServices {
     fun removeBookFromFavourite(bookJson: String)
     fun removeBooksFromFavourites(books: List<String>)
     fun getFavouriteBooks(): List<String>?
+    fun clearFavourites()
 }

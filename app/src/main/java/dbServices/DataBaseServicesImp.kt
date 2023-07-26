@@ -1,6 +1,5 @@
 package dbServices
 
-import android.content.Context
 
 class DataBaseServicesImp private constructor(): DataBaseServices {
 
@@ -38,5 +37,9 @@ class DataBaseServicesImp private constructor(): DataBaseServices {
 
     override fun getFavouriteBooks(): List<String>? {
         return catch.toList()
+    }
+
+    override fun clearFavourites() {
+        catch.clear()
     }
 }

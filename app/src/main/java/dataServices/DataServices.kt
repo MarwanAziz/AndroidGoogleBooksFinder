@@ -6,4 +6,5 @@ interface DataServices {
     fun removeBookFromFavourites(book: DataServicesBook)
     fun removeBooksFromFavourites(books: List<DataServicesBook>)
     fun getFavouriteBooks(): List<DataServicesBook>
+    fun clearAllFavourites()
 }

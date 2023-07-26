@@ -6,26 +6,26 @@ import com.google.gson.GsonBuilder
 import dbServices.DataBaseServices
 import dbServices.DataBaseServicesImp
 
-class DataServicesImp(context: Context): DataServices {
-    private val apiServices: ApiServices = ApiServicesImp(context)
+class DataServicesImp: DataServices {
+    private val apiServices: ApiServices = ApiServicesImp()
     private val dataBaseServices: DataBaseServices = DataBaseServicesImp.getInstance()
 
     private fun transform(item: Item): DataServicesBook {
-        var gson = GsonBuilder().setLenient().create()
+        val gson = GsonBuilder().setLenient().create()
         val jsonObject = gson.toJson(item)
-        var result = gson.fromJson(jsonObject, DataServicesBook::class.java)
+        val result = gson.fromJson(jsonObject, DataServicesBook::class.java)
         return result
     }
 
     private fun transformToJson(book: DataServicesBook): String {
-        var gson = GsonBuilder().setLenient().create()
+        val gson = GsonBuilder().setLenient().create()
         val jsonObject = gson.toJson(book)
         return  jsonObject
     }
 
     private fun transform(json: String): DataServicesBook {
-        var gson = GsonBuilder().setLenient().create()
-        var result = gson.fromJson(json, DataServicesBook::class.java)
+        val gson = GsonBuilder().setLenient().create()
+        val result = gson.fromJson(json, DataServicesBook::class.java)
         return result
     }
 
@@ -65,5 +65,9 @@ class DataServicesImp(context: Context): DataServices {
 
     override fun getFavouriteBooks(): List<DataServicesBook> {
         return dataBaseServices.getFavouriteBooks()?.map { transform(it) } ?: emptyList()
+    }
+
+    override fun clearAllFavourites() {
+        dataBaseServices.clearFavourites()
     }
 }

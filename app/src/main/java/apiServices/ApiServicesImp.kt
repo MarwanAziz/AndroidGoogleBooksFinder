@@ -1,6 +1,7 @@
 package apiServices
 
 import android.content.Context
+import com.example.googlebooksfinder.GoogleBooksFinderApplication
 import com.google.gson.GsonBuilder
 import org.chromium.net.CronetEngine
 import org.chromium.net.UrlRequest
@@ -11,7 +12,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
-class ApiServicesImp(val context: Context): ApiServices {
+class ApiServicesImp: ApiServices {
 
     private val baseUrl: String = "https://www.googleapis.com/books/v1/volumes?q=intitle:"
 
@@ -32,9 +33,8 @@ class ApiServicesImp(val context: Context): ApiServices {
         val decoder = Charset.defaultCharset().newDecoder()
         val json = decoder.decode(buffer).toString()
         val jsonObject = JSONObject(json)
-        var gson = GsonBuilder().setLenient().create()
-        var searchResult = gson.fromJson(jsonObject.toString(), SearchResult::class.java)
-        return searchResult
+        val gson = GsonBuilder().setLenient().create()
+        return gson.fromJson(jsonObject.toString(), SearchResult::class.java)
     }
 
     private fun searchBooksCallBack(callBack: (SearchResult?, String?) -> Unit): ApiServiceCallBack {
@@ -52,6 +52,7 @@ class ApiServicesImp(val context: Context): ApiServices {
         return searchCallBack
     }
     private fun buildSearchRequest(search: String, callBack: (SearchResult?, String?) -> Unit): UrlRequest {
+        val context = GoogleBooksFinderApplication.appContext
         val myBuilder = CronetEngine.Builder(context)
         val cronetEngine: CronetEngine = myBuilder.build()
         val executor: Executor = Executors.newSingleThreadExecutor()

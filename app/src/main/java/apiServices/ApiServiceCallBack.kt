@@ -7,13 +7,12 @@ import org.chromium.net.UrlResponseInfo
 import java.nio.ByteBuffer
 
 private const val TAG = "MyUrlRequestCallback"
+private const val BufferCapacity = 102400
 
 internal class ApiServiceCallBack(val completionHandler: (ByteBuffer?, String?) -> Unit) : UrlRequest.Callback() {
-    private val myBuffer: ByteBuffer = ByteBuffer.allocateDirect(102400)
+    private val myBuffer: ByteBuffer = ByteBuffer.allocateDirect(BufferCapacity)
     override fun onRedirectReceived(request: UrlRequest?, info: UrlResponseInfo?, newLocationUrl: String?) {
         Log.i(TAG, "onRedirectReceived method called.")
-        // You should call the request.followRedirect() method to continue
-        // processing the request.
         request?.followRedirect()
     }
 
@@ -25,7 +24,7 @@ internal class ApiServiceCallBack(val completionHandler: (ByteBuffer?, String?) 
         } else if (httpStatusCode == 503) {
             // The service is unavailable. You should still check if the request
             // contains some data.
-            request?.read(ByteBuffer.allocateDirect(102400))
+            request?.read(ByteBuffer.allocateDirect(BufferCapacity))
         } else if (httpStatusCode == 404) {
             completionHandler.invoke(null, "Not Found")
         }
