@@ -19,4 +19,16 @@ Android, Kotlin, Jetpack Compose, Unit testing, MVVM, Architecture, Design Patte
 
 ## Screenshots
 
-![Search Tab](/Users/marwanaziz/Desktop/Screenshot_20230726_121040.png)
+
+### Search result
+<img src="https://github.com/MarwanAziz/SearchAppStore/assets/19365051/4e1eec6d-cce6-47e1-a14e-09ad10c04fcb" width="400">
+
+
+
+### Search result added to favourites
+<img src="https://github.com/MarwanAziz/SearchAppStore/assets/19365051/57cafebe-0c21-4930-b15b-7f5b0bb17dc3" width="400">
+
+
+
+### Favourites Tab
+<img src="https://github.com/MarwanAziz/SearchAppStore/assets/19365051/6742d7cb-35ae-41bc-b927-76140d8f50ed" width="400">
